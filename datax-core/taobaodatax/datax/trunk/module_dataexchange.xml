@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_dataexchange" default="compile.module.dataexchange">
+  <dirname property="module.dataexchange.basedir" file="${ant.file.module_dataexchange}"/>
+  
+  <property name="module.jdk.home.dataexchange" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.dataexchange" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.dataexchange" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.dataexchange" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="dataexchange.output.dir" value="${module.dataexchange.basedir}/build"/>
+  <property name="dataexchange.testoutput.dir" value="${module.dataexchange.basedir}/build"/>
+  
+  <path id="dataexchange.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dataexchange.module.production.classpath">
+    <path refid="${module.jdk.classpath.dataexchange}"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_perfcounter.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_pangu.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/sqljdbc4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-log4j12-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-api-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ojdbc14_10.2.0.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mysql-connector-java-5.1.18-bin.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mockito-all-1.8.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/log4j-1.2.16.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/libfb303.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/junit-4.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jna.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jaxen-1.1-beta-6.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ivy-1.3.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_shims.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_service.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_serde.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_metastore.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_jdbc.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_exec.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_contrib.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_cli.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hbase-0.90.2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-tools.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-core.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-ant.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/dom4j-2.0.0-ALPHA-2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-pool-1.5.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-logging-1.1.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-lang-2.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-io-2.0.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-dbcp-1.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ant-contrib-1.0b3.jar"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="dataexchange.runtime.production.module.classpath">
+    <pathelement location="${dataexchange.output.dir}"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_perfcounter.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_pangu.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/sqljdbc4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-log4j12-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-api-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ojdbc14_10.2.0.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mysql-connector-java-5.1.18-bin.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mockito-all-1.8.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/log4j-1.2.16.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/libfb303.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/junit-4.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jna.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jaxen-1.1-beta-6.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ivy-1.3.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_shims.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_service.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_serde.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_metastore.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_jdbc.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_exec.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_contrib.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_cli.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hbase-0.90.2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-tools.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-core.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-ant.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/dom4j-2.0.0-ALPHA-2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-pool-1.5.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-logging-1.1.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-lang-2.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-io-2.0.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-dbcp-1.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ant-contrib-1.0b3.jar"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="dataexchange.module.classpath">
+    <pathelement location="${dataexchange.output.dir}"/>
+    <path refid="${module.jdk.classpath.dataexchange}"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_perfcounter.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_pangu.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/sqljdbc4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-log4j12-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-api-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ojdbc14_10.2.0.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mysql-connector-java-5.1.18-bin.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mockito-all-1.8.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/log4j-1.2.16.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/libfb303.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/junit-4.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jna.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jaxen-1.1-beta-6.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ivy-1.3.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_shims.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_service.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_serde.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_metastore.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_jdbc.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_exec.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_contrib.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_cli.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hbase-0.90.2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-tools.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-core.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-ant.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/dom4j-2.0.0-ALPHA-2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-pool-1.5.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-logging-1.1.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-lang-2.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-io-2.0.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-dbcp-1.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ant-contrib-1.0b3.jar"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  <path id="dataexchange.runtime.module.classpath">
+    <pathelement location="${dataexchange.output.dir}"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_perfcounter.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_pangu.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/wrapper_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/sqljdbc4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-log4j12-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/slf4j-api-1.4.3.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ojdbc14_10.2.0.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mysql-connector-java-5.1.18-bin.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/mockito-all-1.8.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/log4j-1.2.16.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/libfb303.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/junit-4.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jna.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/jaxen-1.1-beta-6.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ivy-1.3.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_shims.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_service.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_serde.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_metastore.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_jdbc.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_exec.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_contrib.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_common.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hive_cli.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hbase-0.90.2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-tools.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-core.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/hadoop-0.19.2-ant.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/dom4j-2.0.0-ALPHA-2.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-pool-1.5.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-logging-1.1.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-lang-2.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-io-2.0.1.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/commons-dbcp-1.4.jar"/>
+    <pathelement location="//home/hedgehog/workspace/dataexchange/libs/ant-contrib-1.0b3.jar"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dataexchange">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dataexchange">
+    <patternset refid="excluded.from.module.dataexchange"/>
+  </patternset>
+  
+  <path id="dataexchange.module.sourcepath">
+    <dirset dir="${module.dataexchange.basedir}">
+      <include name="src"/>
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.dataexchange" depends="compile.module.dataexchange.production,compile.module.dataexchange.tests" description="Compile module dataexchange"/>
+  
+  <target name="compile.module.dataexchange.production" depends="register.custom.compilers" description="Compile module dataexchange; production classes">
+    <mkdir dir="${dataexchange.output.dir}"/>
+    <javac2 destdir="${dataexchange.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.dataexchange}/javac">
+      <compilerarg line="${compiler.args.dataexchange}"/>
+      <bootclasspath refid="dataexchange.module.bootclasspath"/>
+      <classpath refid="dataexchange.module.production.classpath"/>
+      <src refid="dataexchange.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dataexchange"/>
+    </javac2>
+    
+    <copy todir="${dataexchange.output.dir}">
+      <fileset dir="${module.dataexchange.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dataexchange.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.dataexchange.tests" depends="register.custom.compilers,compile.module.dataexchange.production" description="compile module dataexchange; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.dataexchange" description="cleanup module">
+    <delete dir="${dataexchange.output.dir}"/>
+    <delete dir="${dataexchange.testoutput.dir}"/>
+  </target>
+</project>

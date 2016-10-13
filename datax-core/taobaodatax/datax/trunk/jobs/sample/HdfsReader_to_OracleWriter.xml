@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jobs>
+  <job id="HdfsReader_to_OracleWriter_job">
+    <reader>
+      <plugin>HdfsReader</plugin>
+      <!--
+		description:HDFS login account, #username,#permission,#password
+		mandatory:true
+		name:ugi
+		-->
+      <param key="hadoop.job.ugi" value="?"/>
+      <!--
+		description:hadoop-site.xml path
+		mandatory:false
+		name:hadoop_conf
+		-->
+      <param key="hadoop_conf" value="?"/>
+      <!--
+		description:hdfs path, format like: hdfs://#ip:#port/#path
+		mandatory:true
+		name:dir
+		-->
+      <param key="dir" value="?"/>
+      <!--
+		default:\t
+		description:how to sperate a line
+		mandatory:false
+		name:fieldSplit
+		-->
+      <param key="field_split" value="\t"/>
+      <!--
+		default:UTF-8
+		range:UTF-8|GBK|GB2312
+		description:hdfs encoding
+		mandatory:false
+		name:encoding
+		-->
+      <param key="encoding" value="UTF-8"/>
+      <!--
+		default:4096
+		range:[1024-4194304]
+		description:how large the buffer
+		mandatory:false
+		name:bufferSize
+		-->
+      <param key="buffer_size" value="4096"/>
+      <!--
+		default:\N
+		range:
+		description:replace the string to null
+		mandatory:false
+		name:nullString
+		-->
+      <param key="nullString" value="\N"/>
+      <!--
+		default:true
+		range:true|false
+		description:ingore key
+		mandatory:false
+		name:ignoreKey
+		-->
+      <param key="ignore_key" value="true"/>
+      <!--
+		default:
+		range:
+		description:how to filter column
+		mandatory:false
+		name:colFilter
+		-->
+      <param key="col_filter" value="?"/>
+      <!--
+		default:1
+		range:1-100
+		description:concurrency of the job
+		mandatory:false
+		name:concurrency
+		-->
+      <param key="concurrency" value="1"/>
+    </reader>
+    
+    <writer>
+      <plugin>OracleWriter</plugin>
+      <!--
+		description:Oracle database dbname
+		mandatory:true
+		name:dbname
+		-->
+      <param key="dbname" value="?"/>
+      <!--
+		description:Oracle database schema
+		mandatory:true
+		name:schema
+		-->
+      <param key="schema" value="?"/>
+      <!--
+		description:table to be dumped data into
+		mandatory:true
+		name:table
+		-->
+      <param key="table" value="?"/>
+      <!--
+		description:oracle database login username
+		mandatory:true
+		name:username
+		-->
+      <param key="username" value="?"/>
+      <!--
+		description:oracle database login password
+		mandatory:true
+		name:password
+		-->
+      <param key="password" value="?"/>
+      <!--
+		default:yyyyMMddhhmmss
+		range:
+		description:oracle time format
+		mandatory:true
+		name:dtfmt
+		-->
+      <param key="dtfmt" value="yyyyMMddhhmmss"/>
+      <!--
+		description:execute pre sql before dumping data .
+		mandatory:true
+		name:pre
+		-->
+      <param key="pre" value="?"/>
+      <!--
+		description:execute post sql after dumping data .
+		mandatory:false
+		name:post
+		-->
+      <param key="post" value="?"/>
+      <!--
+		default:UTF-8
+		range:UTF-8|GBK|GB2312
+		description:encoding
+		mandatory:false
+		name:encoding
+		-->
+      <param key="encoding" value="UTF-8"/>
+      <!--
+		range:col1,col2...
+		description:order of columns
+		mandatory:false
+		name:colorder
+		-->
+      <param key="colorder" value="?"/>
+      <!--
+		default:0
+		description:limit amount of errors
+		mandatory:false
+		name:limit
+		-->
+      <param key="limit" value="0"/>
+      <!--
+		default:1
+		range:1-100
+		description:concurrency of the job
+		mandatory:false
+		name:concurrency
+		-->
+      <param key="concurrency" value="1"/>
+    </writer>
+  </job>
+</jobs>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jobs>
+  <job id="OracleReader_to_MysqlWriter_job">
+    <reader>
+      <plugin>OracleReader</plugin>
+      <!--
+		description:Oracle database name
+		mandatory:true
+		name:dbname
+		-->
+      <param key="dbname" value="?"/>
+      <!--
+		description:Oracle database login username
+		mandatory:true
+		name:username
+		-->
+      <param key="username" value="?"/>
+      <!--
+		description:Oracle database login password
+		mandatory:true
+		name:password
+		-->
+      <param key="password" value="?"/>
+      <!--
+		description:Oracle database schema
+		mandatory:true
+		name:schema
+		-->
+      <param key="schema" value="?"/>
+      <!--
+		description:Oracle database ip address
+		mandatory:true
+		name:ip
+		-->
+      <param key="ip" value="?"/>
+      <!--
+		default:1521
+		description:Oracle database port
+		mandatory:true
+		name:port
+		-->
+      <param key="port" value="1521"/>
+      <!--
+		default:
+		range:
+		description:tables to be exported
+		mandatory:true
+		name:tables
+		-->
+      <param key="tables" value="?"/>
+      <!--
+		default:*
+		range:
+		description:columns to be selected
+		mandatory:false
+		name:columns
+		-->
+      <param key="columns" value="*"/>
+      <!--
+		default:
+		range:
+		description:where clause
+		mandatory:false
+		name:where
+		-->
+      <param key="where" value="?"/>
+      <!--
+		default:
+		range:
+		description:sql statement
+		mandatory:false
+		name:sql
+		-->
+      <param key="sql" value="?"/>
+      <!--
+		default:UTF-8
+		range:UTF-8|GBK|GB2312
+		description:oracle database encoding
+		mandatory:false
+		name:encoding
+		-->
+      <param key="encoding" value="UTF-8"/>
+      <!--
+		default:1
+		range:0-no split, 1-rowid split, others ntile split
+		description:how to split job
+		mandatory:false
+		name:split_mod
+		-->
+      <param key="split_mod" value="1"/>
+      <!--
+		default:/home/oracle/product/10g/db/network/admin/tnsnames.ora
+		range:
+		description:tns file path
+		mandatory:true
+		name:tnsfile
+		-->
+      <param key="tnsfile" value="/home/oracle/product/10g/db/network/admin/tnsnames.ora"/>
+      <!--
+		default:1
+		range:1-100
+		description:concurrency of the job
+		mandatory:false
+		name:concurrency
+		-->
+      <param key="concurrency" value="1"/>
+    </reader>
+    
+    <writer>
+      <plugin>MysqlWriter</plugin>
+      <!--
+		description:Mysql database ip address
+		mandatory:true
+		name:ip
+		-->
+      <param key="ip" value="?"/>
+      <!--
+		default:3306
+		description:Mysql database port
+		mandatory:true
+		name:port
+		-->
+      <param key="port" value="3306"/>
+      <!--
+		description:Mysql database name
+		mandatory:true
+		name:dbname
+		-->
+      <param key="dbname" value="?"/>
+      <!--
+		description:Mysql database login username
+		mandatory:true
+		name:username
+		-->
+      <param key="username" value="?"/>
+      <!--
+		description:Mysql database login password
+		mandatory:true
+		name:password
+		-->
+      <param key="password" value="?"/>
+      <!--
+		default:
+		range:
+		description:table to be dumped data into
+		mandatory:true
+		name:table
+		-->
+      <param key="table" value="?"/>
+      <!--
+		range:
+		description:order of columns
+		mandatory:false
+		name:colorder
+		-->
+      <param key="colorder" value="?"/>
+      <!--
+		default:UTF-8
+		range:UTF-8|GBK|GB2312
+		description:
+		mandatory:false
+		name:encoding
+		-->
+      <param key="encoding" value="UTF-8"/>
+      <!--
+		description:execute sql before dumping data
+		mandatory:false
+		name:pre
+		-->
+      <param key="pre" value="?"/>
+      <!--
+		description:execute sql after dumping data
+		mandatory:false
+		name:post
+		-->
+      <param key="post" value="?"/>
+      <!--
+		default:0
+		range:[0-65535]
+		description:error limit
+		mandatory:false
+		name:limit
+		-->
+      <param key="limit" value="0"/>
+      <!--
+		mandatory:false
+		name:set
+		-->
+      <param key="set" value="?"/>
+      <!--
+		default:false
+		range:[true/false]
+		mandatory:false
+		name:replace
+		-->
+      <param key="replace" value="false"/>
+      <!--
+		range:params1|params2|...
+		description:mysql driver params
+		mandatory:false
+		name:mysql.params
+		-->
+      <param key="mysql.params" value="?"/>
+      <!--
+		default:1
+		range:1-100
+		description:concurrency of the job
+		mandatory:false
+		name:concurrency
+		-->
+      <param key="concurrency" value="1"/>
+    </writer>
+  </job>
+</jobs>

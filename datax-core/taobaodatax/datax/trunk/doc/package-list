@@ -1,0 +1,9 @@
+com.taobao.datax.common.exception
+com.taobao.datax.common.plugin
+com.taobao.datax.common.tools
+com.taobao.datax.common.util
+com.taobao.datax.engine.conf
+com.taobao.datax.engine.constants
+com.taobao.datax.engine.plugin
+com.taobao.datax.engine.schedule
+com.taobao.datax.engine.storage

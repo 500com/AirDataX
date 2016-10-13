@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jobs>
+  <job id="OracleReader_to_HdfsWriter_job">
+    <reader>
+      <plugin>OracleReader</plugin>
+      <!--
+		description:Oracle database name
+		mandatory:true
+		name:dbname
+		-->
+      <param key="dbname" value="?"/>
+      <!--
+		description:Oracle database login username
+		mandatory:true
+		name:username
+		-->
+      <param key="username" value="?"/>
+      <!--
+		description:Oracle database login password
+		mandatory:true
+		name:password
+		-->
+      <param key="password" value="?"/>
+      <!--
+		description:Oracle database schema
+		mandatory:true
+		name:schema
+		-->
+      <param key="schema" value="?"/>
+      <!--
+		description:Oracle database ip address
+		mandatory:true
+		name:ip
+		-->
+      <param key="ip" value="?"/>
+      <!--
+		default:1521
+		description:Oracle database port
+		mandatory:true
+		name:port
+		-->
+      <param key="port" value="1521"/>
+      <!--
+		default:
+		range:
+		description:tables to be exported
+		mandatory:true
+		name:tables
+		-->
+      <param key="tables" value="?"/>
+      <!--
+		default:*
+		range:
+		description:columns to be selected
+		mandatory:false
+		name:columns
+		-->
+      <param key="columns" value="*"/>
+      <!--
+		default:
+		range:
+		description:where clause
+		mandatory:false
+		name:where
+		-->
+      <param key="where" value="?"/>
+      <!--
+		default:
+		range:
+		description:sql statement
+		mandatory:false
+		name:sql
+		-->
+      <param key="sql" value="?"/>
+      <!--
+		default:UTF-8
+		range:UTF-8|GBK|GB2312
+		description:oracle database encoding
+		mandatory:false
+		name:encoding
+		-->
+      <param key="encoding" value="UTF-8"/>
+      <!--
+		default:1
+		range:0-no split, 1-rowid split, others ntile split
+		description:how to split job
+		mandatory:false
+		name:split_mod
+		-->
+      <param key="split_mod" value="1"/>
+      <!--
+		default:/home/oracle/product/10g/db/network/admin/tnsnames.ora
+		range:
+		description:tns file path
+		mandatory:true
+		name:tnsfile
+		-->
+      <param key="tnsfile" value="/home/oracle/product/10g/db/network/admin/tnsnames.ora"/>
+      <!--
+		default:1
+		range:1-100
+		description:concurrency of the job
+		mandatory:false
+		name:concurrency
+		-->
+      <param key="concurrency" value="1"/>
+    </reader>
+    
+    <writer>
+      <plugin>HdfsWriter</plugin>
+      <!--
+		description:HDFS login account, #username,#permission,#password
+		mandatory:true
+		name:ugi
+		-->
+      <param key="hadoop.job.ugi" value="?"/>
+      <!--
+		description:hadoop-site.xml path
+		mandatory:false
+		name:hadoop_conf
+		-->
+      <param key="hadoop_conf" value="?"/>
+      <!--
+		description:hdfs dir，hdfs://#ip:#port/#path
+		mandatory:true
+		name:dir
+		-->
+      <param key="dir" value="?"/>
+      <!--
+		default:part
+		description:hdfs filename
+		mandatory:false
+		name:prefixname
+		-->
+      <param key="prefix_filename" value="part"/>
+      <!--
+		default:1
+		range:[1-10000]
+		description:how many parts to be splitted into
+		mandatory:false
+		name:splitnum
+		-->
+      <param key="split_num" value="1"/>
+      <!--
+		default:\t
+		range:\t,\001,",'
+		description:how to seperate fields
+		mandatory:false
+		name:fieldSplit
+		-->
+      <param key="field_split" value="\t"/>
+      <!--
+		default:\n
+		range:\n
+		description:how to seperate lines
+		mandatory:false
+		name:lineSplit
+		-->
+      <param key="line_split" value="\n"/>
+      <!--
+		default:UTF-8
+		range:UTF-8|GBK|GB2312
+		description:encoding
+		mandatory:false
+		name:encoding (deprecated)
+		-->
+      <param key="encoding" value="UTF-8"/>
+      <!--
+		range:
+		description:how to replace null in hdfs
+		mandatory:false
+		name:nullChar
+		-->
+      <param key="nullchar" value="?"/>
+      <!--
+		default:org.apache.hadoop.io.compress.DefaultCodec
+		range:org. apache.hadoop.io.compress.BZip2Codec|org.apache.hadoop.io.compress.DefaultCodec|org.apache.hadoop.io.compress.GzipCodec
+		description:compress codecs
+		mandatory:false
+		name:codecClass
+		-->
+      <param key="codec_class" value="org.apache.hadoop.io.compress.DefaultCodec"/>
+      <!--
+		default:NONE
+		range:BLOCK|NONE|RECORD
+		description:how to compress file
+		mandatory:false
+		name:compressionType
+		-->
+      <param key="compression_type" value="NONE"/>
+      <!--
+		default:0
+		range:[-1-255]
+		description:
+		mandatory:false
+		name:keyFieldIndex
+		-->
+      <param key="key_field_index" value="0"/>
+      <!--
+		default:4096
+		range:[1024-4194304]
+		description:how much the buffer size is
+		mandatory:false
+		name:bufferSize
+		-->
+      <param key="buffer_size" value="4096"/>
+      <!--
+		default:TXT
+		range:TXT|SEQ|TXT_COMP|SEQ_COMP
+		description:Filetype TXT->TextFile,SEQ->SequenceFile,TXT_COMP->Compressed TextFile,SEQ_COMP->Compressed SequenceFile
+		mandatory:true
+		name:fileType
+		-->
+      <param key="file_type" value="TXT"/>
+      <!--
+		default:org.apache.hadoop.io.Text
+		range:org.apache.hadoop.io.Text|org.apache.hadoop.io.LongWritable|org.apache.hadoop.io.IntWritable|org.apache.hadoop.io.DoubleWritable|org.apache.hadoop.io.BooleanWritable|org.apache.hadoop.io.ByteWritable|org.apache.hadoop.io.VIntWritable|org.apache.hadoop.io.VLongWritable|org.apache.hadoop.io.NullWritable
+		description:SequenceFile key class
+		mandatory:false
+		name:keyClass
+		-->
+      <param key="key_class" value="org.apache.hadoop.io.Text"/>
+      <!--
+		default:org.apache.hadoop.io.Text
+		range:org.apache.hadoop.io.Text|org.apache.hadoop.io.LongWritable|org.apache.hadoop.io.IntWritable|org.apache.hadoop.io.DoubleWritable|org.apache.hadoop.io.BooleanWritable|org.apache.hadoop.io.ByteWritable|org.apache.hadoop.io.VIntWritable|org.apache.hadoop.io.VLongWritable|org.apache.hadoop.io.NullWritable
+		description:SequenceFile value class
+		mandatory:false
+		name:valueClass
+		-->
+      <param key="value_class" value="org.apache.hadoop.io.Text"/>
+      <!--
+		default:3
+		range:[0-4]
+		description:do clean data before loading  0: overwrite file with the same filename  1: report error when exists same filename  2: delete single file  3: delete all files with the same prefix name 	4: delete all files in the directory
+		mandatory:false
+		name:delMode
+		-->
+      <param key="del_mode" value="3"/>
+      <!--
+		default:false
+		mandatory:false
+		name:hiveTableSwitch
+		-->
+      <param key="HIVETABLE_SWITCH" value="false"/>
+      <!--
+		default:
+		mandatory:false
+		name:tableName
+		-->
+      <param key="TABLE_NAME" value="?"/>
+      <!--
+		default:
+		description:
+		mandatory:false
+		name:partitionNames
+		-->
+      <param key="PARTITION_NAMES" value="?"/>
+      <!--
+		default:
+		description:
+		mandatory:false
+		name:partitionValues
+		-->
+      <param key="PARTITION_VALUES" value="?"/>
+      <!--
+		default:10.232.128.67
+		mandatory:false
+		name:hiveServer
+		-->
+      <param key="HIVESERVER_IP" value="10.232.128.67"/>
+      <!--
+		default:10000
+		description:
+		mandatory:false
+		name:hiveServerPort
+		-->
+      <param key="HIVESERVER_PORT" value="10000"/>
+      <!--
+		default:1
+		range:1-100
+		description:concurrency of the job
+		mandatory:false
+		name:concurrency
+		-->
+      <param key="concurrency" value="1"/>
+    </writer>
+  </job>
+</jobs>

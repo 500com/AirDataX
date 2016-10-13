@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='utf-8'?>
+<templates>
+  <!--
+         WARNING!
+  For each unique combination of of DB and IO, there should be one and only one template which its "isdefault" attribute is set to true.
+  If there were more than one template have these attribute set as "true", then the template which it was actually used was undefined.
+  -->
+  <oracle>
+    <reader plugin="OracleReader" isdefault="1">
+      <param key="dbname"       type="1" value="${DB_ext_dbname}" />
+      <param key="username"     type="1" value="${DB_ext_username}" />
+      <param key="password"     type="1" value="${DB_ext_password}" />
+      <param key="schema"       type="1" value="${DB_ext_schema}"   default="" />
+      <param key="ip"           type="1" value="${DB_ext_ip}" />
+      <param key="port"         type="1" value="${DB_ext_port}"     default="1521" />
+      <param key="tables"       type="1" value="${JOB_ext_tables}" />
+      <param key="columns"      type="2" value="${JOB_columns}"     default="*" />
+      <param key="where"        type="2" value="${JOB_where}"       default="" />
+      <param key="sql"          type="2" value="${JOB_ext_sql}"     default="" />
+      <param key="encoding"     type="2" value="${JOB_encoding}"    default="UTF-8" />
+      <param key="split_mod"    type="2" value="${JOB_split_mod}"   default="0" />
+      <param key="tnsfile"      type="2" value="${DB_tnsfile}"      default="${ENV_ORACLE_HOME}/network/admin/tnsnames.ora" />
+      <param key="concurrency"  type="3" value="${JOB_concurrency}" default="2" />
+    </reader>
+    <writer plugin="OracleWriterJdbc" isdefault="1">
+      <param key="dbname"       type="3" value="${DB_load_dbname}" />
+      <param key="schema"       type="1" value="${DB_load_schema}"  default="" />
+      <param key="ip"           type="3" value="${DB_load_ip}" />
+      <param key="port"         type="3" value="${DB_load_port}"    default="1521" />
+      <param key="username"     type="1" value="${DB_load_username}" />
+      <param key="password"     type="1" value="${DB_load_password}" />
+      <param key="table"        type="1" value="${JOB_load_table}" />
+      <param key="dtfmt"        type="3" value="${JOB_dtfmt}"       default="yyyy-MM-dd hh24:mi:ss" />
+      <param key="pre"          type="1" value="${JOB_load_pre}"    default="" />
+      <param key="post"         type="2" value="${JOB_load_post}"   default="" />
+      <param key="encoding"     type="2" value="${JOB_encoding}"    default="UTF-8" />
+      <param key="colorder"     type="2" value="${JOB_colorder}"    default="" />
+      <param key="limit"        type="2" value="${JOB_limit}"       default="0" />
+      <param key="concurrency"  type="3" value="${JOB_concurrency}" default="2" />
+    </writer>
+  </oracle>
+
+  <mysql>
+    <reader plugin="MysqlReader" isdefault="1">
+      <param key="msql.params"  type="2"  value=""/>
+
+      <param key="ip"           type="1"  value="${DB_ext_ip}"/>
+      <param key="port"         type="1"  value="${DB_ext_port}"      default="3306" />
+      <param key="dbname"       type="1"  value="${DB_ext_dbname}"/>
+      <param key="username"     type="1"  value="${DB_ext_username}"/>
+      <param key="password"     type="1"  value="${DB_ext_password}"/>
+      <param key="tables"       type="1"  value="${JOB_ext_tables}" />
+      <param key="columns"      type="2"  value="${JOB_columns}"      default="*" />
+      <param key="where"        type="2"  value="${JOB_where}"        default="" />
+      <param key="sql"          type="2"  value="${JOB_ext_sql}"      default="" />
+      <param key="encoding"     type="2"  value="${JOB_encoding}"     default="UTF-8" />
+      <param key="concurrency"  type="3"  value="${JOB_concurrency}"  default="2" />
+    </reader>
+    <writer plugin="mysqlwriter" isdefault="1">
+      <param key="replace"      type="2" value="false"/>
+
+      <param key="ip"           type="1"  value="${DB_load_ip}"/>
+      <param key="port"         type="1"  value="${DB_load_port}"       default="3306" />
+      <param key="dbname"       type="1"  value="${DB_load_dbname}"/>
+      <param key="username"     type="1"  value="${DB_load_username}"/>
+      <param key="password"     type="1"  value="${DB_load_password}"/>
+      <param key="table"        type="1"  value="${JOB_load_table}"/>
+      <param key="pre"          type="1"  value="${JOB_load_pre}"       default="" />
+      <param key="post"         type="2"  value="${JOB_load_post}"      default="" />
+      <param key="encoding"     type="2"  value="${JOB_encoding}"       default="UTF-8" />
+      <param key="concurrency"  type="3"  value="${JOB_concurrency}"    default="2" />
+    </writer>
+  </mysql>
+
+  <postgres>
+    <reader plugin="postgrereader" isdefault="1">
+      <param key="dbname"       type="1"  value="${DB_ext_dbname}" />
+      <param key="username"     type="1"  value="${DB_ext_username}" />
+      <param key="password"     type="1"  value="${DB_ext_password}" />
+      <param key="schema"       type="1"  value="${DB_ext_schema}" />
+      <param key="ip"           type="1"  value="${DB_ext_ip}" />
+      <param key="port"         type="1"  value="${DB_ext_port}"      default="5432" />
+      <param key="tables"       type="1"  value="${JOB_ext_tables}" />
+      <param key="columns"      type="2"  value="${JOB_columns}"      default="*" />
+      <param key="where"        type="2"  value="${JOB_where}"        default="" />
+      <param key="sql"          type="2"  value="${JOB_ext_sql}"      default="" />
+      <param key="encoding"     type="2"  value="${JOB_encoding}"     default="UTF-8" />
+      <param key="concurrency"  type="3"  value="${JOB_concurrency}"  default="2" />
+    </reader>
+    <writer plugin="PostgreWriter" isdefault="1">
+      <param key="ip"           type="1"  value="${DB_load_ip}" />
+      <param key="port"         type="1"  value="${DB_load_port}"       default="5432" />
+      <param key="dbname"       type="1"  value="${DB_load_dbname}"/>
+      <param key="username"     type="1"  value="${DB_load_username}"/>
+      <param key="password"     type="1"  value="${DB_load_password}"/>
+      <param key="table"        type="1"  value="${JOB_load_table}"/>
+      <param key="pre"          type="1"  value="${JOB_load_pre}"       default="" />
+      <param key="post"         type="2"  value="${JOB_load_post}"      default="" />
+      <param key="encoding"     type="2"  value="${JOB_encoding}"       default="UTF-8" />
+      <param key="concurrency"  type="3"  value="${JOB_concurrency}"    default="2" />
+    </writer>
+  </postgres>
+
+  <hive>
+    <reader plugin="HdfsReader" isdefault="1">
+      <param key="hadoop.job.ugi"               type="3"  value="hdfs,hadoop#hadoop" />
+      <param key="hadoop_conf"                  type="3"  value="${DB_hadoop_conf}" />
+      <param key="hive_server_ip"               type="2"  value="${DB_ext_ip}" />
+      <param key="hive_server_port"             type="2"  value="${DB_ext_port}" />
+      <param key="hive_metastore_thrift_server" type="3"  value="${DB_hive_metastore_thrift_server}"  />
+      <param key="hive_metastore_thrift_port"   type="3"  value="${DB_hive_metastore_thrift_port}"    default="9083"/>
+      <param key="hive_warehouse_dir"           type="2"  value="${DB_hive_warehouse_dir}"            default="/user/hive/warehouse"/>
+      <param key="hive_database"                type="2"  value="${DB_ext_schema}"                    default="default"/>
+      <param key="dir"                          type="3"  value="${DB_dir}"                           default="hive"/>
+
+      <param key="hive_table_name"              type="1"  value="${JOB_ext_hive_table_name}" />
+      <param key="field_split"                  type="2"  value="${JOB_field_split}"                  default="\001"/>
+      <param key="encoding"                     type="2"  value="${JOB_encoding}"                     default="UTF-8"/>
+      <param key="buffer_size"                  type="2"  value="${JOB_buffer_size}"                  default="4096"/>
+      <param key="null_string"                  type="2"  value="${JOB_null_string}"                  default=""/>
+      <param key="ignore_key"                   type="2"  value="${JOB_ignore_key}"                   default="true"/>
+      <param key="col_filter"                   type="2"  value="${JOB_col_filter}"                   default=""/>
+      <param key="hive_fs_address"              type="2"  value="${JOB_hive_fs_address}"              default=""/>
+      <param key="concurrency"                  type="3"  value="${JOB_concurrency}"                  default="2"/>
+      <param key="hive_partition_names"         type="2"  value="${JOB_ext_hive_partition_names}"     default=""/>
+      <param key="hive_partition_values"        type="2"  value="${JOB_ext_hive_partition_values}"    default=""/>
+      <param key="hive_sql"                     type="2"  value="${JOB_ext_sql}"                      default="SELECT * FROM ${JOB_ext_hive_table_name}"/>
+    </reader>
+    <writer plugin="HdfsWriter" isdefault="1">
+      <param key="hadoop.job.ugi"               type="3"  value="hadoop,hadoop#qweiophadoop" />
+      <param key="codec_class"                  type="2"  value="org.apache.hadoop.io.compress.DefaultCodec"/>
+      <param key="compression_type"             type="2"  value="NONE"/>
+      <param key="key_class"                    type="2"  value="org.apache.hadoop.io.Text"/>
+      <param key="value_class"                  type="2"  value="org.apache.hadoop.io.Text"/>
+      <param key="key_field_index"              type="2"  value="0"/>
+      <param key="file_type"                    type="2"  value="TXT"/>
+      <param key="del_mode"                     type="3"  value="3"/>
+      <param key="hive_table_switch"            type="3"  value="true"/>
+      <param key="partition_names"              type="2"  value=""/>
+      <param key="partition_values"             type="2"  value=""/>
+
+      <param key="hadoop_conf"                  type="3"  value="${DB_hadoop_conf}" />
+      <param key="dir"                          type="2"  value="${DB_dir}" />
+      <param key="hive_server"                  type="3"  value="${DB_load_ip}" />
+      <param key="hive_server_port"             type="3"  value="${DB_load_port}" />
+      <param key="hive_database"                type="2"  value="${DB_load_schema}"           default="default" />
+
+      <param key="prefix_filename"              type="1"  value="${JOB_load_prefix_filename}" />
+      <param key="hive_table_name"              type="1"  value="${JOB_load_hive_table_name}" />
+      <param key="field_split"                  type="3"  value="${JOB_field_split}"          default="\001" />
+      <param key="line_split"                   type="2"  value="${JOB_line_split}"           default="\n" />
+      <param key="encoding"                     type="2"  value="${JOB_encoding}"             default="UTF-8" />
+      <param key="nullchar"                     type="2"  value="${JOB_null_string}"          default="" />
+      <param key="buffer_size"                  type="2"  value="${JOB_buffer_size}"          default="4096"/>
+      <param key="hive_pre"                     type="1"  value="${JOB_load_hive_pre}"        default="" />
+      <param key="hive_post"                    type="2"  value="${JOB_load_hive_post}"       default="" />
+      <param key="concurrency"                  type="3"  value="${JOB_concurrency}"          default="1"/>
+    </writer>
+  </hive>
+
+  <ftp>
+    <reader plugin="ftpreader" isdefault="1">
+      <param key="host"         value="${DB_ext_ip}"/>
+      <param key="port"         value="${DB_ext_port}"/>
+      <param key="username"     value="${DB_ext_username}"/>
+      <param key="password"     value="${DB_ext_password}"/>
+      <param key="protocol"     value="${DB_protocol}"/>
+      <param key="path"         value="${JOB_path}"/>
+      <param key="concurrency"  value="${JOB_concurrency}"    default="2"/>
+    </reader>
+    <writer plugin="ftpwriter" isdefault="1">
+      <param key="host"         value="${DB_load_ip}"/>
+      <param key="port"         value="${DB_load_port}"/>
+      <param key="username"     value="${DB_load_username}"/>
+      <param key="password"     value="${DB_load_password}"/>
+      <param key="protocol"     value="${DB_protocol}"/>
+      <param key="path"         value="${JOB_path}"/>
+      <param key="writemode"    value="${JOB_writemode}"      default="truncate"/>
+      <param key="concurrency"  value="${JOB_concurrency}"    default="2"/>
+    </writer>
+  </ftp>
+
+  <file>
+    <writer plugin="filewriter" isdefault="1">
+      <param key="path"         value="${JOB_path}"/>
+      <param key="writemode"    value="${JOB_writemode}"      default="truncate"/>
+      <param key="encoding"     value="${JOB_encoding}"       default="UTF-8"/>
+      <param key="concurrency"  value="${JOB_concurrency}"    default="2"/>
+      <param key="field_split"  value="${JOB_field_split}"    default="\001" />
+    </writer>
+  </file>
+
+</templates>
+

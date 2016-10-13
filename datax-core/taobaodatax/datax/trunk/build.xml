@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DataX" default="dist" basedir=".">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="libs/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<property name="engine.dir" value="build/engine" />
+	<property name="plugins.dir" value="build/plugins" />
+	<property name="common.dir" value="build/common" />
+	<property name="src.dir" value="src" />
+	<property name="test.dir" value="test" />
+	<property name="test.reports" value="build/reports" />
+	<property name="classes.dir" value="build/classes" />
+	<property name="c++.build.dir" value="c++/build" />
+	<property name="lib.dir" value="libs" />
+	<property name="conf.dir" value="conf" />
+	<property name="engine.version" value="1.0.0" />
+	<property name="common.version" value="1.0.0" />
+
+	<property name="report" value="build/report" />
+	<property name="report.xml" value="${report}/junit/xml" />
+	<property name="report.html" value="${report}/junit/html" />
+
+	<path id="compile.classpath">
+		<pathelement location="${classes.dir}" />
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+		<pathelement path="${conf.dir}" />
+	</path>
+
+	<target name="clean" description="delete all temporary build files">
+		<delete dir="${engine.dir}" />
+		<!--delete dir="${plugins.dir}" /-->
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<target name="prepare">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${common.dir}" />
+		<mkdir dir="${engine.dir}" />
+		<mkdir dir="${plugins.dir}" />
+	</target>
+			
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true" deprecation="true" includeantruntime="on" >
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<target name="test" depends="clean,compile">
+		<delete dir="${test.reports}" />
+		<mkdir dir="${test.reports}" />
+		<javac srcdir="${test.dir}" destdir="${classes.dir}" debug="true">
+			<classpath refid="compile.classpath" />
+		</javac>
+		<junit failureProperty="test.failure">
+			<classpath>
+				<pathelement location="${classes.dir}" />
+				<fileset dir="libs" />
+			</classpath>
+			<formatter type="xml" />
+			<batchtest todir="${test.reports}">
+				<fileset dir="${classes.dir}" includes="**/*Test.class" />
+			</batchtest>
+		</junit>
+		<junitreport todir="${test.reports}">
+			<fileset dir="${test.reports}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report todir="${test.reports}" />
+		</junitreport>
+		<fail message="test failed" if="test.failure" />
+	</target>
+
+
+	<target name="enginedist" depends="clean,compile">
+		<jar jarfile="${engine.dir}/engine-${engine.version}.jar" basedir="${classes.dir}" includes="com/taobao/datax/engine/**/*.class" >
+			<manifest>
+				<attribute name="main-class" value="com.taobao.datax.engine.schedule.Engine" />
+			</manifest>
+		</jar>
+	</target>
+
+    <target name="commondist" depends="clean,compile">
+		<jar jarfile="${common.dir}/common-${common.version}.jar" basedir="${classes.dir}" includes="com/taobao/datax/common/**/*.class" />
+	</target>
+
+    <target name="plugincommondist" depends="clean,compile">
+		<jar jarfile="${plugins.dir}/plugins-common-${common.version}.jar" basedir="${classes.dir}" includes="com/taobao/datax/plugins/common/*.class" />
+	</target>
+
+	<target name="eachplugindist">
+		<basename property="version" file="${var}" />
+		<dirname property="no_version" file="${var}" />
+		<basename property="jarname" file="${no_version}" />
+		<jar jarfile="${plugins.dir}/${jarname}-${version}.jar" basedir="${classes.dir}" includes="com/taobao/datax/plugins/**/${jarname}/**" />
+	</target>
+
+	<target name="plugindist" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/hdfswriter/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/oraclewriter/1.0.0" />
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/oraclewriterjdbc/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/mysqlwriter/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/ftpwriter/1.0.0" />
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/filewriter/1.0.0" />
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/postgrewriter/1.0.0" />
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/hdfsreader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/oraclereader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/mysqlreader/1.0.0" />
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/postgrereader/1.0.0" />
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/hivereader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/httpreader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/ftpreader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/hbasewriter/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/hbasereader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/streamwriter/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/streamreader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/fakereader/1.0.0" />
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/sqlserverreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="hdfswriter" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/hdfswriter/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="streamwriter" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/streamwriter/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="hbasewriter" depends="clean,compile">
+			<foreach target="eachplugindist" param="var">
+				<path id="plugins">
+					<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/hbasewriter/1.0.0" />
+				</path>
+			</foreach>
+		</target>
+	
+	<target name="hbasereader" depends="clean,compile">
+			<foreach target="eachplugindist" param="var">
+				<path id="plugins">
+					<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/hbasereader/1.0.0" />
+				</path>
+			</foreach>
+    </target>
+	
+	<target name="oraclewriter" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/oraclewriter/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+    <target name="oraclewriterjdbc" depends="clean,compile">
+        <foreach target="eachplugindist" param="var">
+            <path id="plugins">
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/oraclewriterjdbc/1.0.0" />
+            </path>
+        </foreach>
+    </target>
+
+	<target name="mysqlwriter" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/mysqlwriter/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+	<target name="ftpwriter" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/ftpwriter/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+    <target name="filewriter" depends="clean,compile">
+        <foreach target="eachplugindist" param="var">
+            <path id="plugins">
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/filewriter/1.0.0" />
+            </path>
+        </foreach>
+    </target>
+    <target name="postgrewriter" depends="clean,compile">
+        <foreach target="eachplugindist" param="var">
+            <path id="plugins">
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/writer/postgrewriter/1.0.0" />
+            </path>
+        </foreach>
+    </target>
+	<target name="hdfsreader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/hdfsreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="streamreader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/streamreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+
+	<target name="fakereader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/fakereader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+		
+		
+	<target name="httpreader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/httpreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+
+	<target name="ftpreader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/ftpreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+
+	<target name="oraclereader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/oraclereader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+	
+	<target name="mysqlreader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/mysqlreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+    <target name="postgrereader" depends="clean,compile">
+        <foreach target="eachplugindist" param="var">
+            <path id="plugins">
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/postgrereader/1.0.0" />
+            </path>
+        </foreach>
+    </target>
+    <target name="hivereader" depends="clean,compile">
+        <foreach target="eachplugindist" param="var">
+            <path id="plugins">
+                <pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/hivereader/1.0.0" />
+            </path>
+        </foreach>
+    </target>
+	<target name="sqlserverreader" depends="clean,compile">
+		<foreach target="eachplugindist" param="var">
+			<path id="plugins">
+				<pathelement path="${classes.dir}/com/taobao/datax/plugins/reader/sqlserverreader/1.0.0" />
+			</path>
+		</foreach>
+	</target>
+
+	<target name="dist" depends="clean, compile, enginedist, commondist, plugincommondist, plugindist">
+	</target>
+</project>
+
+
+
+
+
